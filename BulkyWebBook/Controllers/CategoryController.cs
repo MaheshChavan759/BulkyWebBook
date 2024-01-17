@@ -1,4 +1,5 @@
-﻿using BulkyWebBook.Data;
+﻿
+using BulkyWebBook.DataAccess.Data;
 using BulkyWebBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace BulkyWebBook.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully.";
                 return RedirectToAction("Index", "Category");
             }
             
@@ -60,6 +62,8 @@ namespace BulkyWebBook.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["Success"] = "Category Updated Successfully.";
+
                 return RedirectToAction("Index", "Category");
             }
 
@@ -90,6 +94,8 @@ namespace BulkyWebBook.Controllers
             if (categoryobj == null) { return NotFound(); }
             _db.Categories.Remove(categoryobj);
             _db.SaveChanges();
+            TempData["Success"] = "Category Updated Successfully.";
+
             return RedirectToAction("Index", "Category");
         }
     }
