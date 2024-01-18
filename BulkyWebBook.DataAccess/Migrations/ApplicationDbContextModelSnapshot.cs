@@ -61,6 +61,67 @@ namespace BulkyWebBook.DataAccess.Migrations
                             DisplaeyCategoryOrder = 13
                         });
                 });
+
+            modelBuilder.Entity("BulkyWebBook.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ListPrise")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Prise")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Prise100")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Prise50")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Mahesh Chavan",
+                            Description = "Present very Good",
+                            ListPrise = 200.0,
+                            Prise = 175.0,
+                            Prise100 = 100.0,
+                            Prise50 = 150.0,
+                            Title = "Fortune of Time"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Mahesh Chavan",
+                            Description = "Present very Good",
+                            ListPrise = 200.0,
+                            Prise = 175.0,
+                            Prise100 = 100.0,
+                            Prise50 = 150.0,
+                            Title = "Fortune of Time"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }
