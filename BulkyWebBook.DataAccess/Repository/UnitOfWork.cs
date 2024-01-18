@@ -4,24 +4,27 @@ using BulkyWebBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BulkyWebBook.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>,IcategoryRepository
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db): base(db)
+        public IcategoryRepository Category { get; private set; }
+        public UnitOfWork(ApplicationDbContext db) 
         {
-            _db = db;
-        }
-       
 
-        public void update(Category obj)
+            _db = db;
+            Category = new CategoryRepository(_db);
+
+        }
+        
+
+        public void Save()
         {
-            _db.Categories.Update(obj);
+            _db.SaveChanges();
         }
     }
 }
