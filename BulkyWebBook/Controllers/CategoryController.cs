@@ -8,14 +8,14 @@ namespace BulkyWebBook.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly IcategoryRepository  _categoryRepo;
-        public CategoryController(IcategoryRepository db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitofwork)
         {
-           _categoryRepo = db;
+           _unitOfWork = unitofwork;
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = _categoryRepo.GetAll().ToList();
+            List<Category> categoryList =_unitOfWork.category.GetAll().ToList();
             return View(categoryList);
         }
         public IActionResult Create()
@@ -28,8 +28,8 @@ namespace BulkyWebBook.Controllers
         {
             if (ModelState.IsValid) 
             {
-                _categoryRepo.Add(obj);
-                _categoryRepo.save();
+               _unitOfWork.category.Add(obj);
+              _unitOfWork.Save();
                 TempData["success"] = "Category Created Successfully.";
                 return RedirectToAction("Index", "Category");
             }
@@ -43,7 +43,7 @@ namespace BulkyWebBook.Controllers
             {
                 return NotFound();
             }
-            Category CategoryFromDb = _categoryRepo.Get(u=>u.CategoryId== CategoryID);
+            Category CategoryFromDb = _unitOfWork.category.Get(u=>u.CategoryId== CategoryID);
             //Category CategoryFromDb1 = _db.Categories.FirstOrDefault(u=> u.CategoryId==CategoryID);
             //Category CategoryFromDb2= _db.Categories.Where(u=>u.CategoryId==CategoryID).FirstOrDefault();   
 
@@ -61,8 +61,8 @@ namespace BulkyWebBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.update(obj);
-                _categoryRepo.save();
+                _unitOfWork.category.update(obj);
+                _unitOfWork.Save();
                 TempData["Success"] = "Category Updated Successfully.";
 
                 return RedirectToAction("Index", "Category");
@@ -77,7 +77,7 @@ namespace BulkyWebBook.Controllers
             {
                 return NotFound();
             }
-            Category CategoryFromDb = _categoryRepo.Get(u => u.CategoryId == CategoryID);
+            Category CategoryFromDb = _unitOfWork.category.Get(u => u.CategoryId == CategoryID);
             //Category CategoryFromDb1 = _db.Categories.FirstOrDefault(u=> u.CategoryId==CategoryID);
             //Category CategoryFromDb2= _db.Categories.Where(u=>u.CategoryId==CategoryID).FirstOrDefault();   
 
@@ -91,10 +91,10 @@ namespace BulkyWebBook.Controllers
         [HttpPost,ActionName("Delete")]
         public IActionResult DeletePost(int? CategoryId)
         {
-            Category categoryobj = _categoryRepo.Get(u => u.CategoryId == CategoryId); ;
+            Category categoryobj = _unitOfWork.category.Get(u => u.CategoryId == CategoryId); ;
             if (categoryobj == null) { return NotFound(); }
-            _categoryRepo.Remove(categoryobj);
-           _categoryRepo.save();
+            _unitOfWork.category.Remove(categoryobj);
+         _unitOfWork.Save();
             TempData["Success"] = "Category Updated Successfully.";
 
             return RedirectToAction("Index", "Category");
