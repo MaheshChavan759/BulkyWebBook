@@ -20,7 +20,7 @@ namespace BulkyWebBook.DataAccess.Repository.IRepository
 
         void Add(T entity);
 
-        // update and save changes need to perticular for type like category so not required inplement globally.
+        // update and save changes need to perticular for type like category so not required implement globally.
 
         // void Update(T entity);
       //  void savechanges();
