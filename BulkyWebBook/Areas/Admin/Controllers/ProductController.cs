@@ -2,6 +2,8 @@
 using BulkyWebBook.DataAccess.Repository.IRepository;
 using BulkyWebBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace BulkyWebBook.Areas.Admin.Controllers
 {
@@ -16,10 +18,20 @@ namespace BulkyWebBook.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> ProductList = _unitOfWork.Product.GetAll().ToList();
+           
+            
             return View(ProductList);
         }
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.category.GetAll()
+               .Select(u => new SelectListItem
+               {
+                   Text = u.CategoryName,
+                   Value = u.CategoryId.ToString()
+
+               });
+            ViewBag.categorylist = CategoryList;
             return View();
         }
 
