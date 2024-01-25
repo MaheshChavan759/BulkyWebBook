@@ -3,6 +3,7 @@ using BulkyWebBook.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyWebBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240125054226_AddforeignKeyforCategoryProductReletion")]
+    partial class AddforeignKeyforCategoryProductReletion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,10 +84,6 @@ namespace BulkyWebBook.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ListPrise")
                         .HasColumnType("int");
 
@@ -111,7 +110,6 @@ namespace BulkyWebBook.DataAccess.Migrations
                             Author = "The Don",
                             CategoryId = 1,
                             Description = "At main man",
-                            ImageUrl = "",
                             ListPrise = 10000,
                             Prise100 = 5000,
                             Prise50 = 8700,
@@ -123,7 +121,6 @@ namespace BulkyWebBook.DataAccess.Migrations
                             Author = "The Don",
                             CategoryId = 2,
                             Description = "At main man",
-                            ImageUrl = "",
                             ListPrise = 10000,
                             Prise100 = 5000,
                             Prise50 = 8700,

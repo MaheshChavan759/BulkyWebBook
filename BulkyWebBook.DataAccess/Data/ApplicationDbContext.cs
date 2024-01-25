@@ -25,7 +25,22 @@ namespace BulkyWebBook.DataAccess.Data
                    Author= "The Don",
                    ListPrise= 10000,
                    Prise50 = 8700,
-                   Prise100=5000
+                   Prise100=5000,
+                   CategoryId=1,
+                   ImageUrl = ""
+               },
+               new Product
+               {
+                   Id = 3,
+                   Title = "Powerful",
+                   Description = "At main man",
+                   Author = "The Don",
+                   ListPrise = 10000,
+                   Prise50 = 8700,
+                   Prise100 = 5000,
+                   CategoryId = 2,
+                   ImageUrl=""
+                   
                }
                 );
         }

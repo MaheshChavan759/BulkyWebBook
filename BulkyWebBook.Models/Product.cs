@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,16 @@ namespace BulkyWebBook.Models
         public int ListPrise { get; set; }
         [Required,DisplayName("Prise  for 1-50")]
         public int Prise50 { get; set; }
+
         [Required,DisplayName("Prise For 1-100")]
         public int Prise100 { get; set; }
+
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
+
+        public string ImageUrl { get; set; }
 
     }
 }
