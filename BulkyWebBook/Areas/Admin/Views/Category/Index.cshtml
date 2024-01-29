@@ -19,6 +19,7 @@
     <table class="table table-bordered table-striped">
         <thed>
             <tr>
+                <th>Category Id</th>
                 <th>Category Name</th>
                 <th>Category Display Order</th>
                 <th> Edit & Delete</th>
@@ -29,6 +30,7 @@
             @foreach (var obj in Model.OrderBy(u => u.DisplaeyCategoryOrder))
             {
                 <tr>
+                    <td>@obj.CategoryId</td>
                     <td>
                         @obj.CategoryName
                     </td>
