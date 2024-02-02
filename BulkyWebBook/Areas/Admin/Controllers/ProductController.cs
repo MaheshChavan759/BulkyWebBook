@@ -49,7 +49,12 @@ namespace BulkyWebBook.Areas.Admin.Controllers
             else
             {
                 // For Update 
-                productVM.Product = _unitOfWork.Product.Get(u => u.Id == Id);
+                List<Product> prods = (List<Product>)_unitOfWork.Product.GetAll();
+                //productVM.Product = (Product)_unitOfWork.Product.GetAll();
+                //Product prod;
+                //prod = (Product)_unitOfWork.Product.Get(b => b.Id==Id);
+                productVM.Product = prods.FirstOrDefault(b => b.Id == Id);
+            
                 return View(productVM);
             }
 
