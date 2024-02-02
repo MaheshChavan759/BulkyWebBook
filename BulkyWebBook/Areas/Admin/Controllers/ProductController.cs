@@ -23,10 +23,9 @@ namespace BulkyWebBook.Areas.Admin.Controllers
         {
             List<Product> ProductList = _unitOfWork.Product.GetAll().ToList();
            
-            
             return View(ProductList);
         }
-        public IActionResult Upsert(int? Id)
+        public IActionResult Upsert(int? id)
         {
             ProductVM productVM = new()
             {
@@ -35,13 +34,11 @@ namespace BulkyWebBook.Areas.Admin.Controllers
                {
                    Text = u.CategoryName,
                    Value = u.CategoryId.ToString()
-
                }),
                 Product = new Product()
-
             };
 
-            if (Id == null || Id == 0)
+            if (id == null || id == 0)
             {
                 //Create functionality 
                 return View(productVM);
@@ -50,18 +47,9 @@ namespace BulkyWebBook.Areas.Admin.Controllers
             {
                 // For Update 
                 List<Product> prods = (List<Product>)_unitOfWork.Product.GetAll();
-                //productVM.Product = (Product)_unitOfWork.Product.GetAll();
-                //Product prod;
-                //prod = (Product)_unitOfWork.Product.Get(b => b.Id==Id);
-                productVM.Product = prods.FirstOrDefault(b => b.Id == Id);
-            
+                productVM.Product = prods.FirstOrDefault(b => b.Id == id);
                 return View(productVM);
             }
-
-
-
-           
-           
         }
 
         [HttpPost]
@@ -124,8 +112,6 @@ namespace BulkyWebBook.Areas.Admin.Controllers
             }
         }
 
-     
-
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -134,9 +120,11 @@ namespace BulkyWebBook.Areas.Admin.Controllers
             }
             Product productDelFromDB = _unitOfWork.Product.Get(u => u.Id == id);
             //Product CategoryFromDb1 = _db.Categories.FirstOrDefault(u=> u.CategoryId==CategoryID);
-            //Product CategoryFromDb2= _db.Categories.Where(u=>u.CategoryId==CategoryID).FirstOrDefault();   
+            //Product CategoryFromDb2= _db.Categories.Where(u=>u.CategoryId==CategoryID).FirstOrDefault();
+            //
+            List<Product> prods = (List<Product>)_unitOfWork.Product.GetAll();
 
-            if(productDelFromDB == null)
+            if (productDelFromDB == null)
             {
                 return NotFound();
             }
@@ -146,7 +134,12 @@ namespace BulkyWebBook.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Product ProductcfromDB = _unitOfWork.Product.Get(u => u.Id == id); ;
+            //Product ProductcfromDB = _unitOfWork.Product.Get(u => u.Id == id); 
+
+            List<Product> prods = (List<Product>)_unitOfWork.Product.GetAll();
+
+            var ProductcfromDB = prods.FirstOrDefault(b => b.Id == id);
+
             if (ProductcfromDB == null) { return NotFound(); }
             _unitOfWork.Product.Remove(ProductcfromDB);
             _unitOfWork.Save();
