@@ -60,7 +60,7 @@ namespace BulkyWebBook.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Upsert(ProductVM obj,IFormFile file)
+        public IActionResult Upsert(ProductVM obj,IFormFile? file)
         {
             if (ModelState.IsValid)
             {

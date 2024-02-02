@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BulkyWebBook.DataAccess.Repository
 {
-    public class ProductRepository : Repository<Product>,IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private ApplicationDbContext _db;
-        public ProductRepository(ApplicationDbContext db): base(db)
+        public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -24,7 +24,23 @@ namespace BulkyWebBook.DataAccess.Repository
 
         public void update(Product obj)
         {
-            _db.Products.Update(obj);
+            var ObjFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
+            if (ObjFromDb != null)
+            {
+                ObjFromDb.Title = obj.Title;
+                ObjFromDb.Description = obj.Description;
+                ObjFromDb.Author = obj.Author;
+                ObjFromDb.ListPrise = obj.ListPrise;
+                ObjFromDb.Prise50 = obj.Prise50;
+                ObjFromDb.Prise100 = obj.Prise100;
+                ObjFromDb.CategoryId = obj.CategoryId;
+
+                if (ObjFromDb.ImageUrl != null)
+                {
+                    ObjFromDb.ImageUrl = obj.ImageUrl;
+                }
+
+            }
         }
     }
 }
