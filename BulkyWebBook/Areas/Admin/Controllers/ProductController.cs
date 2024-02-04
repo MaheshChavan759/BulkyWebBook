@@ -21,7 +21,7 @@ namespace BulkyWebBook.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> ProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> ProductList = _unitOfWork.Product.GetAll(includeproperties:"Category").ToList();
            
             return View(ProductList);
         }

@@ -22,22 +22,46 @@ namespace BulkyWebBook.DataAccess.Repository
             _db = db;
             this.dbset=_db.Set<T>();
             //_db.Categories == dbset;
+
+            _db.Products.Include(u => u.Category).Include(u=>u.CategoryId);
         }
         public void Add(T entity)
         {
             dbset.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter, string? includeproperties = null)
         {
             IQueryable<T> query = dbset;
             query.Where(filter);
+            if (!string.IsNullOrEmpty(includeproperties))
+            {
+                foreach (var item in includeproperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+
+                {
+                    query = query.Include(item);
+                }
+            }
+
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+
+        //Category , CoverType User want to include
+        public IEnumerable<T> GetAll( string? includeproperties = null)
         {
             IQueryable<T> query = dbset;
+            if(!string.IsNullOrEmpty(includeproperties))
+            {
+                foreach (var item in includeproperties
+                    .Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+                    
+                {
+                    query=query.Include(item);
+                }
+            }
+
              return query.ToList();
         }
 
