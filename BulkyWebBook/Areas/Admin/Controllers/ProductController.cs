@@ -147,6 +147,19 @@ namespace BulkyWebBook.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Product");
         }
+
+        #region API Calls
+
+        [HttpGet]
+        public IActionResult GetAll( )
+        {
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeproperties: "Category").ToList();
+
+            return Json(new { data = objProductList });
+
+        }
+
+        #endregion
     }
 }
 
