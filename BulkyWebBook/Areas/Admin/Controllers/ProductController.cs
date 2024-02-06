@@ -46,6 +46,8 @@ namespace BulkyWebBook.Areas.Admin.Controllers
             else
             {
                 // For Update 
+
+                //Product p = _unitOfWork.Product.Get(u => u.Id == id);
                 List<Product> prods = (List<Product>)_unitOfWork.Product.GetAll();
                 productVM.Product = prods.FirstOrDefault(b => b.Id == id);
                 return View(productVM);
