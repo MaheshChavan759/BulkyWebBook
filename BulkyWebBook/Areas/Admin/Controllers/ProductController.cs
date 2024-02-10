@@ -2,6 +2,8 @@
 using BulkyWebBook.DataAccess.Repository.IRepository;
 using BulkyWebBook.Models;
 using BulkyWebBook.Models.ViewModels;
+using BulkyWebBook.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 namespace BulkyWebBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
