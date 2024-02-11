@@ -16,5 +16,6 @@ namespace BulkyWebBook.Models
         public string? StreetAddress { get; set; }
         public string? State { get; set; }
         public string? PostalCode { get; set; }
+       
     }
 }
